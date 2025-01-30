@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function App() {
+interface Game {
+  id: number;
+  name: string;
+  description: string;
+}
+
+const App: React.FC = () => {
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    // Fazer uma requisição GET para o backend para obter os jogos
+    axios.get('http://localhost:3001/games')
+      .then(response => { 
+        setGames(response.data);
+      })
+      .catch(error => {
+        console.error("Houve um erro ao buscar os jogos:", error);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Lista de Jogos</h1>
+      <ul>
+        {games.map((game) => (
+          <li key={game.id}>
+            <h2>{game.name}</h2>
+            <p>{game.description}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
