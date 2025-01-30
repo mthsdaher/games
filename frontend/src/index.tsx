@@ -14,4 +14,5 @@ root.render(
 );
 
 // Inicia a medição de performance
+// sokxokx
 reportWebVitals();
