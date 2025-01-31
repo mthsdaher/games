@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface Game {
   id: number;
@@ -11,27 +13,22 @@ const App: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    // Fazer uma requisição GET para o backend para obter os jogos
-    axios.get('http://localhost:3001/games')
-      .then(response => { 
-        setGames(response.data);
-      })
-      .catch(error => {
-        console.error("Houve um erro ao buscar os jogos:", error);
-      });
+    axios
+      .get("http://localhost:3001/games")
+      .then((response) => setGames(response.data))
+      .catch((error) => console.error("Erro ao buscar os jogos:", error));
   }, []);
 
   return (
-    <div>
-      <h1>Lista de Jogos</h1>
-      <ul>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+      <h1 className="text-4xl font-bold mb-6">Mago Games</h1>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {games.map((game) => (
-          <li key={game.id}>
-            <h2>{game.name}</h2>
-            <p>{game.description}</p>
-          </li>
+          <Link key={game.id} to={`/game/${game.id}`}>
+            <Button className="w-40 h-20 text-lg">{game.name}</Button>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
