@@ -1,8 +1,10 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
+// Definição da interface Game
 interface Game {
   id: number;
   name: string;
