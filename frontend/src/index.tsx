@@ -1,18 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';  // Função de medição de performance
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import App from "./App";
+import GameDetail from "./pages/GameDetail"; // Nova página para detalhes do jogo
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/game/:id" element={<GameDetail />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
-
-// Inicia a medição de performance
-// sokxokx
-reportWebVitals();
